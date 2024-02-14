@@ -1,0 +1,48 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.pain {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff4de;
+}
+
+.painful-number {
+    font-size: 10em;
+    text-shadow: 0 0 20px #3a3a3a;
+}
+
+.painful-description {
+    text-align: right;
+    font-size: 2em;
+    text-shadow: 0 0 5px #3a3a3a;
+    margin-top: -1em;
+}
