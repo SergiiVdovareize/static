@@ -62,7 +62,7 @@
         return rows.map(row => {
           const columns = row.split(',').map(key => key.trim());
           return columns.reduce((rowData, column, index) => {
-            rowData[keys[index]] = keys[index] === 'amount' ? Number(column) : Date.parse(column)
+            rowData[keys[index]] = keys[index] === 'a' ? Number(column) : Date.parse(column)
             return rowData;
           }, {});
         });
