@@ -61,6 +61,7 @@
 
         storeData(currentData.a);
         const numberNode = document.getElementsByClassName('painful-number')[0]
+        // const sinceNode = document.getElementsByClassName('since-date')[0]
         const dateNode = document.getElementsByClassName('painful-date')[0]
         
         const date = new Date(currentData.l)
@@ -85,16 +86,26 @@
         });
     };
 
-    const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSyoZJqTuLIYV0K6MLloGKbo-sj50I-aJVmkWQJCDqW8MdDbf_ogxD7L4C-oKL4nCq3W67wuuZUdxVz/pub?gid=0&single=true&output=csv'
-    fetch(url)
+    const fetchData = () => {
+        const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSyoZJqTuLIYV0K6MLloGKbo-sj50I-aJVmkWQJCDqW8MdDbf_ogxD7L4C-oKL4nCq3W67wuuZUdxVz/pub?gid=0&single=true&output=csv'
+        fetch(url)
+            .then(response => response.text())
+            .then(csvToJson)
+            .then(setData)
+            .catch(error => {
+                console.error(error)
+                const numberNode = document.getElementsByClassName('painful-number')?.[0]
+                if (numberNode) {
+                    numberNode.innerHTML = '<span>русні пізда</span>'
+                }
+            })
+    }
+
+    const templateFile = './template.html'
+    fetch(templateFile)
         .then(response => response.text())
-        .then(csvToJson)
-        .then(setData)
-        .catch(error => {
-            console.error(error)
-            const numberNode = document.getElementsByClassName('painful-number')?.[0]
-            if (numberNode) {
-                numberNode.innerHTML = '<span>русні пізда</span>'
-            }
+        .then(text => {
+            document.getElementsByTagName('body')[0].innerHTML = text
         })
+        .then(fetchData)
 })()
