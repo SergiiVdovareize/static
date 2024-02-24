@@ -101,7 +101,8 @@
             })
     }
 
-    const templateFile = './template.html'
+    // const templateFile = './template.html'
+    const templateFile = 'https://static.vdovareize.me/budget/template.html'
     fetch(templateFile)
         .then(response => response.text())
         .then(text => {
