@@ -63,7 +63,7 @@
         const numberNode = document.getElementsByClassName('painful-number')[0]
         const dateNode = document.getElementsByClassName('painful-date')[0]
         
-        const date = new Date(parseInt(currentData.l, 10) * 1000)
+        const date = new Date(currentData.l)
         const day = date.getDate().toString().padStart(2, 0)
         const month = (date.getMonth() + 1).toString().padStart(2, 0)
         const year = date.getFullYear()
