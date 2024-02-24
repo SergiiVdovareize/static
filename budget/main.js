@@ -55,18 +55,20 @@
         }
 
         console.log('data', data)
-        console.log('budget', budgetMap[subdomain])
-        storeData(data.id);
+        
+        const currentData = data[budgetMap[subdomain]]
+        console.log('currentData', currentData)
 
+        storeData(currentData.a);
         const numberNode = document.getElementsByClassName('painful-number')[0]
         const dateNode = document.getElementsByClassName('painful-date')[0]
         
-        const date = new Date(parseInt(data.last_updated, 10) * 1000)
+        const date = new Date(parseInt(currentData.l, 10) * 1000)
         const day = date.getDate().toString().padStart(2, 0)
         const month = (date.getMonth() + 1).toString().padStart(2, 0)
         const year = date.getFullYear()
 
-        numberNode.innerText = formatAmount(data.id)
+        numberNode.innerText = formatAmount(currentData.a)
         dateNode.innerText = `${day}.${month}.${year}`
     }
 
