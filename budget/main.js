@@ -11,7 +11,7 @@
         }
                 
         if (diff !== 0) {
-            const diffNode = document.getElementsByClassName('painful-diff')[0]
+            const diffNode = document.getElementsByClassName('diff')[0]
             let formattedDiff = formatAmount(diff)
             if (diff > 0) {
                 formattedDiff = `+${formattedDiff}`
@@ -67,13 +67,13 @@
         console.log('currentData', currentData)
 
         storeData(currentData.a);
-        const numberNode = document.getElementsByClassName('painful-number')[0]
+        const amountNode = document.getElementsByClassName('amount')[0]
         const sinceNode = document.getElementsByClassName('since')[0]
-        const dateNode = document.getElementsByClassName('painful-date')[0]
+        const recentNode = document.getElementsByClassName('recent')[0]
         
-        numberNode.innerText = formatAmount(currentData.a)
-        dateNode.innerText = getDateString(currentData.l)
-        sinceNode.innerText = getDateString(currentData.s)
+        amountNode.innerText = formatAmount(currentData.a)
+        sinceNode.innerText = `since ${getDateString(currentData.s)}`
+        recentNode.innerText = `recent ${getDateString(currentData.l)}`
     }
 
     const csvToJson = (csvString) => {
@@ -97,14 +97,14 @@
             .then(setData)
             .catch(error => {
                 console.error(error)
-                const numberNode = document.getElementsByClassName('painful-number')?.[0]
+                const numberNode = document.getElementsByClassName('amount')?.[0]
                 if (numberNode) {
                     numberNode.innerHTML = '<span>русні пізда</span>'
                 }
             })
     }
 
-    // const templateFile = './temd:\budget\favicon.pngplate.html'
+    // const templateFile = './template.html'
     const templateFile = 'https://static.vdovareize.me/budget/template.html'
     fetch(templateFile)
         .then(response => response.text())
