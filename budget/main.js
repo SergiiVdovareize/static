@@ -41,8 +41,23 @@
     }
 
     const setData = (data) => {
+        const subdomain = window.location.host.split('.')[0]
+
+        const budgetMap = {
+            'apt': 0,
+            'budget': 1,
+            'auto': 2,
+            'dent': 3,
+        }
+
+        if (!budgetMap[subdomain]) {
+            throw new Error('unknown subdomain');
+        }
+
         console.log('data', data)
+        console.log('budget', budgetMap[subdomain])
         storeData(data.id);
+
         const numberNode = document.getElementsByClassName('painful-number')[0]
         const dateNode = document.getElementsByClassName('painful-date')[0]
         
@@ -60,13 +75,13 @@
         const keys = rows.shift().split(',').map(key => key.trim())
         
         return rows.map(row => {
-          const columns = row.split(',').map(key => key.trim());
-          return columns.reduce((rowData, column, index) => {
-            rowData[keys[index]] = keys[index] === 'a' ? Number(column) : Date.parse(column)
-            return rowData;
-          }, {});
+            const columns = row.split(',').map(key => key.trim());
+            return columns.reduce((rowData, column, index) => {
+                rowData[keys[index]] = keys[index] === 'a' ? Number(column) : Date.parse(column)
+                return rowData;
+            }, {});
         });
-      };
+    };
 
     const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSyoZJqTuLIYV0K6MLloGKbo-sj50I-aJVmkWQJCDqW8MdDbf_ogxD7L4C-oKL4nCq3W67wuuZUdxVz/pub?gid=0&single=true&output=csv'
     fetch(url)
