@@ -53,8 +53,8 @@
         const subdomain = window.location.host.split('.')[0]
 
         const budgetMap = {
-            'apt': 0,
-            'budget': 1,
+            'donates': 0,
+            'apt': 1,
             'auto': 2,
             'dent': 3,
         }
