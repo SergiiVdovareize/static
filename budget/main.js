@@ -40,6 +40,15 @@
         }
     }
 
+    const getDateString = (timestamp) => {
+        const date = new Date(timestamp)
+        const day = date.getDate().toString().padStart(2, 0)
+        const month = (date.getMonth() + 1).toString().padStart(2, 0)
+        const year = date.getFullYear()
+        
+        return `${day}.${month}.${year}`
+    }
+
     const setData = (data) => {
         const subdomain = window.location.host.split('.')[0]
 
@@ -54,23 +63,17 @@
             throw new Error('unknown subdomain');
         }
 
-        console.log('data', data)
-        
         const currentData = data[budgetMap[subdomain]]
         console.log('currentData', currentData)
 
         storeData(currentData.a);
         const numberNode = document.getElementsByClassName('painful-number')[0]
-        // const sinceNode = document.getElementsByClassName('since-date')[0]
+        const sinceNode = document.getElementsByClassName('since')[0]
         const dateNode = document.getElementsByClassName('painful-date')[0]
         
-        const date = new Date(currentData.l)
-        const day = date.getDate().toString().padStart(2, 0)
-        const month = (date.getMonth() + 1).toString().padStart(2, 0)
-        const year = date.getFullYear()
-
         numberNode.innerText = formatAmount(currentData.a)
-        dateNode.innerText = `${day}.${month}.${year}`
+        dateNode.innerText = getDateString(currentData.l)
+        sinceNode.innerText = getDateString(currentData.s)
     }
 
     const csvToJson = (csvString) => {
