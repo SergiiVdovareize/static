@@ -1,6 +1,5 @@
 (()=>{
-    // const subdomain = window.location.hostname.split('.').slice(0, -2).join('.') || 'root';
-    const subdomain = 'root';
+    const subdomain = window.location.host.split('.')[0]
 
     const formatAmount = amount => amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 
@@ -50,8 +49,6 @@
     }
 
     const setData = (data) => {
-        const subdomain = window.location.host.split('.')[0]
-
         const budgetMap = {
             'apt': 0,
             'donates': 1,
@@ -59,13 +56,14 @@
             'dent': 3,
         }
 
-        if (!budgetMap[subdomain]) {
-            throw new Error('unknown subdomain');
+        
+        if (budgetMap[subdomain] === undefined) {
+            throw new Error('unknown subdomain')
         }
 
         const currentData = data[budgetMap[subdomain]]
 
-        storeData(currentData.a);
+        storeData(currentData.a)
         const amountNode = document.getElementsByClassName('amount')[0]
         const sinceNode = document.getElementsByClassName('since')[0]
         const recentNode = document.getElementsByClassName('recent')[0]
@@ -76,17 +74,17 @@
     }
 
     const csvToJson = (csvString) => {
-        const rows = csvString.split('\n');
+        const rows = csvString.split('\n')
         const keys = rows.shift().split(',').map(key => key.trim())
         
         return rows.map(row => {
-            const columns = row.split(',').map(key => key.trim());
+            const columns = row.split(',').map(key => key.trim())
             return columns.reduce((rowData, column, index) => {
                 rowData[keys[index]] = keys[index] === 'a' ? Number(column) : Date.parse(column)
-                return rowData;
-            }, {});
-        });
-    };
+                return rowData
+            }, {})
+        })
+    }
 
     const fetchData = () => {
         const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSyoZJqTuLIYV0K6MLloGKbo-sj50I-aJVmkWQJCDqW8MdDbf_ogxD7L4C-oKL4nCq3W67wuuZUdxVz/pub?gid=0&single=true&output=csv'
