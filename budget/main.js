@@ -64,7 +64,6 @@
         }
 
         const currentData = data[budgetMap[subdomain]]
-        console.log('currentData', currentData)
 
         storeData(currentData.a);
         const amountNode = document.getElementsByClassName('amount')[0]
@@ -96,7 +95,6 @@
             .then(csvToJson)
             .then(setData)
             .catch(error => {
-                console.error(error)
                 const numberNode = document.getElementsByClassName('amount')?.[0]
                 if (numberNode) {
                     numberNode.innerHTML = '<span>русні пізда</span>'
