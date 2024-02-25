@@ -88,11 +88,13 @@
 
     const fetchData = () => {
         const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSyoZJqTuLIYV0K6MLloGKbo-sj50I-aJVmkWQJCDqW8MdDbf_ogxD7L4C-oKL4nCq3W67wuuZUdxVz/pub?gid=0&single=true&output=csv'
-        fetch(url)
+        return fetch(url)
             .then(response => response.text())
             .then(csvToJson)
             .then(setData)
             .catch(error => {
+                console.warn(error)
+
                 const numberNode = document.getElementsByClassName('amount')?.[0]
                 if (numberNode) {
                     numberNode.innerHTML = '<span>русні пізда</span>'
@@ -100,14 +102,18 @@
             })
     }
 
-    const setTemplate = () => {
-        const meta = document.createElement('meta');
+    const setThemeColor = () => {
+        const meta = document.createElement('meta')
         meta.name = 'theme-color'
-        meta.content = '23a6d5'
+        meta.content = '#23a6d5'
         document.getElementsByTagName('head')[0].appendChild(meta)
+    }
+
+    const setTemplate = () => {
+        setThemeColor()
 
         const templateFile = 'https://static.vdovareize.me/budget/template.html'
-        fetch(templateFile)
+        return fetch(templateFile)
             .then(response => response.text())
             .then(text => {
                 document.getElementsByTagName('body')[0].innerHTML = text
@@ -118,5 +124,5 @@
         setTemplate().then(fetchData)
     }
 
-    run();
+    run()
 })()
