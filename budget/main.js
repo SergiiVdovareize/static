@@ -100,12 +100,23 @@
             })
     }
 
-    // const templateFile = './template.html'
-    const templateFile = 'https://static.vdovareize.me/budget/template.html'
-    fetch(templateFile)
-        .then(response => response.text())
-        .then(text => {
-            document.getElementsByTagName('body')[0].innerHTML = text
-        })
-        .then(fetchData)
+    const setTemplate = () => {
+        const meta = document.createElement('meta');
+        meta.name = 'theme-color'
+        meta.content = '23a6d5'
+        document.getElementsByTagName('head')[0].appendChild(meta)
+
+        const templateFile = 'https://static.vdovareize.me/budget/template.html'
+        fetch(templateFile)
+            .then(response => response.text())
+            .then(text => {
+                document.getElementsByTagName('body')[0].innerHTML = text
+            })    
+    }
+
+    const run = () => {
+        setTemplate().then(fetchData)
+    }
+
+    run();
 })()
