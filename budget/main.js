@@ -49,19 +49,33 @@
     }
 
     const setData = (data) => {
-        const budgetMap = {
-            'apt': 0,
-            'donates': 1,
-            'auto': 2,
-            'dent': 3,
-        }
+        const budgetMap = [{
+            index: 0,
+            sub: 'apt',
+            color: '#607d8b',
+        }, {
+            index: 1,
+            sub: 'donates',
+            color: '#23a6d5',
+        }, {
+            index: 2,
+            sub: 'auto',
+            color: '#673ab7',
+        }, {
+            index: 3,
+            sub: 'dent',
+            color: 'red',
+        }]
 
+        const domainData = budgetMap.find(budgetData => budgetData.sub === subdomain)
         
-        if (budgetMap[subdomain] === undefined) {
+        if (domainData === undefined) {
             throw new Error('unknown subdomain')
         }
+        setThemeColor(domainData.color)
 
-        const currentData = data[budgetMap[subdomain]]
+        const currentData = data[domainData]
+
 
         storeData(currentData.a)
         const amountNode = document.getElementsByClassName('amount')[0]
@@ -102,16 +116,22 @@
             })
     }
 
-    const setThemeColor = () => {
+    const setThemeColor = (color) => {
+        if (!color) {
+            console.warn('no bg color to set')
+            return
+        }
+
+        const container = document.getElementsByClassName('container')[0]
+        container.style.backgroundColor = color
+
         const meta = document.createElement('meta')
         meta.name = 'theme-color'
-        meta.content = '#23a6d5'
+        meta.content = color
         document.getElementsByTagName('head')[0].appendChild(meta)
     }
 
     const setTemplate = () => {
-        setThemeColor()
-
         const templateFile = 'https://static.vdovareize.me/budget/template.html'
         return fetch(templateFile)
             .then(response => response.text())
