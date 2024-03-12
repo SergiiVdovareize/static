@@ -68,16 +68,15 @@
         }]
 
         const domainData = budgetMap.find(budgetData => budgetData.sub === subdomain)
-        
         if (domainData === undefined) {
             throw new Error('unknown subdomain')
         }
+        
+        const currentData = data[domainData.index]
+
         setThemeColor(domainData.color)
-
-        const currentData = data[domainData]
-
-
         storeData(currentData.a)
+
         const amountNode = document.getElementsByClassName('amount')[0]
         const sinceNode = document.getElementsByClassName('since')[0]
         const recentNode = document.getElementsByClassName('recent')[0]
