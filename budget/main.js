@@ -52,7 +52,7 @@
         const budgetMap = [{
             index: 0,
             sub: 'apt',
-            color: '#607d8b',
+            color: '#28792b',
         }, {
             index: 1,
             sub: 'donates',
@@ -64,14 +64,14 @@
         }, {
             index: 3,
             sub: 'dent',
-            color: 'red',
+            color: '#7f4412',
         }]
 
         const domainData = budgetMap.find(budgetData => budgetData.sub === subdomain)
         if (domainData === undefined) {
             throw new Error('unknown subdomain')
         }
-        
+
         const currentData = data[domainData.index]
 
         setThemeColor(domainData.color)
