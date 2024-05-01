@@ -476,14 +476,18 @@ body {
 
 .theme-pixel .card-number-block:active .card-number,
 .theme-pixel .content-number-wrapper .card-number:active {
-	color: #262B2E;
-	text-shadow: 0 0 5px #262B2E;
+	color: black;
+	text-shadow: 0 0 5px black;
 }
 
 .theme-pixel .bank-link-bg {
-	background-color: #262B2E;
+	background-color: white;
 }
 
 .theme-pixel .bank-logo {
-	background-color: white;
+	background-color: #262B2E;
+}
+
+.theme-pixel .bank-rest {
+	color: #262B2E;
 }
