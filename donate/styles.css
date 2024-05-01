@@ -463,3 +463,27 @@ body {
 .theme-light .card-number::after {
 	background-color: black;
 }
+
+/* PIXEL THEME */
+.container.theme-pixel {
+	color: white;
+	background-color: #6C834B;	
+}
+
+.theme-pixel .number-recipient {
+	color: #262B2E;
+}
+
+.theme-pixel .card-number-block:active .card-number,
+.theme-pixel .content-number-wrapper .card-number:active {
+	color: #262B2E;
+	text-shadow: 0 0 5px #262B2E;
+}
+
+.theme-pixel .bank-link-bg {
+	background-color: #262B2E;
+}
+
+.theme-pixel .bank-logo {
+	background-color: white;
+}
