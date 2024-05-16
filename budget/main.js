@@ -1,6 +1,5 @@
 (()=>{
     const subdomain = window.location.host.split('.')[0]
-
     const formatAmount = amount => amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 
     const showDiff = (currAmount, lastId) => {
