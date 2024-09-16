@@ -2,6 +2,30 @@
     const subdomain = window.location.host.split('.')[0]
     const formatAmount = amount => amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 
+    const budgetMap = [{
+        index: 0,
+        sub: 'apt',
+        color: '#28792b',
+    }, {
+        index: 1,
+        sub: 'donates',
+        color: '#23a6d5',
+    }, {
+        index: 2,
+        sub: 'auto',
+        color: '#673ab7',
+    }, {
+        index: 3,
+        sub: 'dent',
+        color: '#7f4412',
+    }, {
+        index: 4,
+        sub: 'meow',
+        color: '#FA61BC',
+    }]
+
+    const domainData = budgetMap.find(budgetData => budgetData.sub === subdomain)
+
     const showDiff = (currAmount, lastId) => {
         const diff = currAmount - parseInt(lastId, 10)
         if (isNaN(diff)) {
@@ -48,36 +72,7 @@
     }
 
     const setData = (data) => {
-        const budgetMap = [{
-            index: 0,
-            sub: 'apt',
-            color: '#28792b',
-        }, {
-            index: 1,
-            sub: 'donates',
-            color: '#23a6d5',
-        }, {
-            index: 2,
-            sub: 'auto',
-            color: '#673ab7',
-        }, {
-            index: 3,
-            sub: 'dent',
-            color: '#7f4412',
-        }, {
-            index: 4,
-            sub: 'meow',
-            color: '#FA61BC',
-        }]
-
-        const domainData = budgetMap.find(budgetData => budgetData.sub === subdomain)
-        if (domainData === undefined) {
-            throw new Error('unknown subdomain')
-        }
-
         const currentData = data[domainData.index]
-
-        setThemeColor(domainData.color)
         storeData(currentData.a)
 
         const amountNode = document.getElementsByClassName('amount')[0]
@@ -119,6 +114,9 @@
     }
 
     const setThemeColor = (color) => {
+        const domainData = budgetMap.find(budgetData => budgetData.sub === subdomain)
+        setThemeColor(domainData.color)
+
         if (!color) {
             console.warn('no bg color to set')
             return
@@ -139,10 +137,15 @@
             .then(response => response.text())
             .then(text => {
                 document.getElementsByTagName('body')[0].innerHTML = text
+                setThemeColor()
             })    
     }
 
     const run = () => {
+        if (domainData === undefined) {
+            throw new Error('unknown subdomain')
+        }
+        
         setTemplate().then(fetchData)
     }
 
