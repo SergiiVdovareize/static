@@ -114,9 +114,6 @@
     }
 
     const setThemeColor = (color) => {
-        const domainData = budgetMap.find(budgetData => budgetData.sub === subdomain)
-        setThemeColor(domainData.color)
-
         if (!color) {
             console.warn('no bg color to set')
             return
@@ -137,7 +134,7 @@
             .then(response => response.text())
             .then(text => {
                 document.getElementsByTagName('body')[0].innerHTML = text
-                setThemeColor()
+                setThemeColor(domainData.color)
             })    
     }
 
