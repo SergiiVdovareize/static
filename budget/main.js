@@ -1,6 +1,8 @@
 (()=>{
-    const subdomain = window.location.host.split('.')[0]
+    // const subdomain = window.location.host.split('.')[0]
+    const subdomain = 'auto'
     const formatAmount = amount => amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    let calculatingId;
 
     const budgetMap = [{
         index: 0,
@@ -72,6 +74,7 @@
     }
 
     const setData = (data) => {
+        clearTimeout(calculatingId)
         const currentData = data[domainData.index]
         storeData(currentData.a)
 
@@ -128,6 +131,22 @@
         document.getElementsByTagName('head')[0].appendChild(meta)
     }
 
+    const runCalculating = (recentNode = document.getElementsByClassName('recent')[0]) => {
+        recentNode.innerText = 'calculating'
+        animateCalculating(recentNode)
+    }
+
+    const animateCalculating = (recentNode) => {
+        calculatingId = setTimeout(() => {
+            recentNode.innerText = `.${recentNode.innerText}.`
+            if (recentNode.innerText.length > 22) {
+                runCalculating(recentNode)
+            } else {
+                animateCalculating(recentNode)
+            }
+        }, 150)
+    }
+
     const setTemplate = () => {
         const templateFile = 'https://static.vdovareize.me/budget/template.html'
         return fetch(templateFile)
@@ -135,6 +154,7 @@
             .then(text => {
                 document.getElementsByTagName('body')[0].innerHTML = text
                 setThemeColor(domainData.color)
+                runCalculating();
             })    
     }
 
