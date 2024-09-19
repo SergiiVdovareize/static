@@ -1,6 +1,6 @@
 (()=>{
-    // const subdomain = window.location.host.split('.')[0]
-    const subdomain = 'auto'
+    const subdomain = window.location.host.split('.')[0]
+    // const subdomain = 'auto' // for testing locally
     const formatAmount = amount => amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     let calculatingId;
 
