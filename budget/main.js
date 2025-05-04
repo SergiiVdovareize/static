@@ -25,7 +25,7 @@
         sub: 'meow',
         color: '#FA61BC',
     }, {
-        index: 4,
+        index: 5,
         sub: 'bike',
         color: '#FA61BC',
     }]
