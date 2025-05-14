@@ -1,8 +1,16 @@
 (()=>{
-    const subdomain = window.location.host.split('.')[0]
-    // const subdomain = 'auto' // for testing locally
-    const formatAmount = amount => amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    const host = window.location.host
+    const isLocal = host.startsWith('localhost')
     const dataSource = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSyoZJqTuLIYV0K6MLloGKbo-sj50I-aJVmkWQJCDqW8MdDbf_ogxD7L4C-oKL4nCq3W67wuuZUdxVz/pub?gid=0&single=true&output=csv'
+
+    const localDomain = 'auto'
+    const localTemplate = './template.html'
+    
+    const subdomain = isLocal ? localDomain : host.split('.')[0]
+    const templateFile = isLocal ? localTemplate : 'https://static.vdovareize.me/budget/template.html'
+
+    const formatAmount = amount => amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    
     let calculatingId;
 
     const budgetMap = [{
@@ -157,7 +165,6 @@
     }
 
     const setTemplate = () => {
-        const templateFile = './template.html'
         return fetch(templateFile)
             .then(response => response.text())
             .then(text => {
