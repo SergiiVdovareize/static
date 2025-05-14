@@ -2,6 +2,7 @@
     const subdomain = window.location.host.split('.')[0]
     // const subdomain = 'auto' // for testing locally
     const formatAmount = amount => amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    const dataSource = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSyoZJqTuLIYV0K6MLloGKbo-sj50I-aJVmkWQJCDqW8MdDbf_ogxD7L4C-oKL4nCq3W67wuuZUdxVz/pub?gid=0&single=true&output=csv'
     let calculatingId;
 
     const budgetMap = [{
@@ -83,10 +84,14 @@
         storeData(currentData.a)
 
         const amountNode = document.getElementsByClassName('amount')[0]
+        const amountUsdNode = document.getElementsByClassName('amount-usd')[0]
         const sinceNode = document.getElementsByClassName('since')[0]
         const recentNode = document.getElementsByClassName('recent')[0]
         
-        amountNode.innerText = formatAmount(currentData.a)
+        amountNode.innerText = `${formatAmount(currentData.a)}`
+        if (!!currentData.d) {
+            amountUsdNode.innerText = `${formatAmount(currentData.d)}`
+        }
         sinceNode.innerText = `since ${getDateString(currentData.s)}`
         recentNode.innerText = `recent ${getDateString(currentData.l)}`
     }
@@ -94,19 +99,19 @@
     const csvToJson = (csvString) => {
         const rows = csvString.split('\n')
         const keys = rows.shift().split(',').map(key => key.trim())
+        const numberCols = ['a', 'd']
         
         return rows.map(row => {
             const columns = row.split(',').map(key => key.trim())
             return columns.reduce((rowData, column, index) => {
-                rowData[keys[index]] = keys[index] === 'a' ? Number(column) : Date.parse(column)
+                rowData[keys[index]] = numberCols.includes(keys[index]) ? Number(column) : Date.parse(column)
                 return rowData
             }, {})
         })
     }
 
     const fetchData = () => {
-        const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSyoZJqTuLIYV0K6MLloGKbo-sj50I-aJVmkWQJCDqW8MdDbf_ogxD7L4C-oKL4nCq3W67wuuZUdxVz/pub?gid=0&single=true&output=csv'
-        return fetch(url)
+        return fetch(dataSource)
             .then(response => response.text())
             .then(csvToJson)
             .then(setData)
@@ -152,7 +157,7 @@
     }
 
     const setTemplate = () => {
-        const templateFile = 'https://static.vdovareize.me/budget/template.html'
+        const templateFile = './template.html'
         return fetch(templateFile)
             .then(response => response.text())
             .then(text => {
