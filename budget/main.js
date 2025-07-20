@@ -3,7 +3,7 @@
     const isLocal = host.startsWith('localhost')
     const dataSource = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSyoZJqTuLIYV0K6MLloGKbo-sj50I-aJVmkWQJCDqW8MdDbf_ogxD7L4C-oKL4nCq3W67wuuZUdxVz/pub?gid=0&single=true&output=csv'
 
-    const localDomain = 'auto'
+    const localDomain = 'oct'
     const localTemplate = './template.html'
     
     const subdomain = isLocal ? localDomain : host.split('.')[0]
@@ -23,7 +23,7 @@
         color: '#23a6d5',
     }, {
         index: 2,
-        sub: 'auto',
+        sub: 'oct',
         color: '#673ab7',
     }, {
         index: 3,
