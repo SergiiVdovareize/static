@@ -27,14 +27,18 @@
         color: '#673ab7',
     }, {
         index: 3,
+        sub: 'kod',
+        color: '#336478',
+    }, {
+        index: 4,
         sub: 'dent',
         color: '#7f4412',
     }, {
-        index: 4,
+        index: 5,
         sub: 'meow',
         color: '#FA61BC',
     }, {
-        index: 5,
+        index: 6,
         sub: 'bike',
         color: '#d72a2a',
     }]
