@@ -41,6 +41,10 @@
         index: 6,
         sub: 'bike',
         color: '#d72a2a',
+    }, {
+        index: 7,
+        sub: 'home',
+        color: '#2a9ad7',
     }]
 
     const domainData = budgetMap.find(budgetData => budgetData.sub === subdomain)
